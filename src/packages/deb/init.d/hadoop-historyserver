@@ -74,7 +74,7 @@ case "$1" in
 	check_privsep_dir
 	check_for_no_start
 	log_daemon_msg "Starting Apache Hadoop Job History server" "hadoop-historyserver"
-	if start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-mapred-historyserver.pid -c mapred -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start historyserver; then
+	if USER=mapred start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-mapred-historyserver.pid -c mapred -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start historyserver; then
 	    log_end_msg 0
 	else
 	    log_end_msg 1
@@ -94,7 +94,7 @@ case "$1" in
 	log_daemon_msg "Restarting Apache Hadoop Job History server" "hadoop-historyserver"
 	start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile ${HADOOP_PID_DIR}/hadoop-mapred-historyserver.pid
 	check_for_no_start log_end_msg
-	if start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-mapred-historyserver.pid -c mapred -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start historyserver; then
+	if USER=mapred start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-mapred-historyserver.pid -c mapred -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start historyserver; then
 	    log_end_msg 0
 	else
 	    log_end_msg 1
@@ -112,7 +112,7 @@ case "$1" in
 	    0)
 		# old daemon stopped
 		check_for_no_start log_end_msg
-		if start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-mapred-historyserver.pid -c mapred -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start historyserver; then
+		if USER=mapred start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-mapred-historyserver.pid -c mapred -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start historyserver; then
 		    log_end_msg 0
 		else
 		    log_end_msg 1

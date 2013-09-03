@@ -78,7 +78,7 @@ case "$1" in
 	check_privsep_dir
 	check_for_no_start
 	log_daemon_msg "Starting Apache Hadoop Name Node server" "hadoop-namenode"
-	if start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-hdfs-namenode.pid -c hdfs -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start namenode; then
+	if USER=hdfs start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-hdfs-namenode.pid -c hdfs -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start namenode; then
 	    log_end_msg 0
 	else
 	    log_end_msg 1
@@ -106,7 +106,7 @@ case "$1" in
 	log_daemon_msg "Restarting Apache Hadoop Name Node server" "hadoop-namenode"
 	start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile ${HADOOP_PID_DIR}/hadoop-hdfs-namenode.pid
 	check_for_no_start log_end_msg
-	if start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-hdfs-namenode.pid -c hdfs -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start namenode; then
+	if USER=hdfs start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-hdfs-namenode.pid -c hdfs -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start namenode; then
 	    log_end_msg 0
 	else
 	    log_end_msg 1
@@ -124,7 +124,7 @@ case "$1" in
 	    0)
 		# old daemon stopped
 		check_for_no_start log_end_msg
-		if start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-hdfs-namenode.pid -c hdfs -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start namenode; then
+		if USER=hdfs start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-hdfs-namenode.pid -c hdfs -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start namenode; then
 		    log_end_msg 0
 		else
 		    log_end_msg 1

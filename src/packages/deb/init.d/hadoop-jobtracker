@@ -74,7 +74,7 @@ case "$1" in
 	check_privsep_dir
 	check_for_no_start
 	log_daemon_msg "Starting Apache Hadoop Job Tracker server" "hadoop-jobtracker"
-	if start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-mapred-jobtracker.pid -c mapred -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start jobtracker; then
+	if USER=mapred start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-mapred-jobtracker.pid -c mapred -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start jobtracker; then
 	    log_end_msg 0
 	else
 	    log_end_msg 1
@@ -94,7 +94,7 @@ case "$1" in
 	log_daemon_msg "Restarting Apache Hadoop Job Tracker server" "hadoop-jobtracker"
 	start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile ${HADOOP_PID_DIR}/hadoop-mapred-jobtracker.pid
 	check_for_no_start log_end_msg
-	if start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-mapred-jobtracker.pid -c mapred -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start jobtracker; then
+	if USER=mapred start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-mapred-jobtracker.pid -c mapred -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start jobtracker; then
 	    log_end_msg 0
 	else
 	    log_end_msg 1
@@ -112,7 +112,7 @@ case "$1" in
 	    0)
 		# old daemon stopped
 		check_for_no_start log_end_msg
-		if start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-mapred-jobtracker.pid -c mapred -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start jobtracker; then
+		if USER=mapred start-stop-daemon --start --quiet --oknodo --pidfile ${HADOOP_PID_DIR}/hadoop-mapred-jobtracker.pid -c mapred -x ${HADOOP_PREFIX}/sbin/hadoop-daemon.sh -- --config ${HADOOP_CONF_DIR} start jobtracker; then
 		    log_end_msg 0
 		else
 		    log_end_msg 1
